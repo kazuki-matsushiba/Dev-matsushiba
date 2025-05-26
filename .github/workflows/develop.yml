@@ -1,0 +1,19 @@
+name: ssh command
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute deploy script over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          port: ${{ secrets.DEV_SSH_PORT }}
+          key: ${{ secrets.DEV_SSH_KEY }}
+          script: bash /app/deploy.sh kazuki_matsushiba
+
