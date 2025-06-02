@@ -20,7 +20,7 @@ jobs:
 
   Deploy:
     runs-on: ubuntu-latest
-    needs: test # ssss
+    needs: test
     steps:
       - name: Deploy to production
         uses: appleboy/ssh-action@v1.0.0
