@@ -35,5 +35,4 @@ jobs:
           username: ${{ secrets.PRODUCTION_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
           script: |
-            git config --global --add safe.directory /app
             bash /app/deploy.sh kazuki_matsushiba
