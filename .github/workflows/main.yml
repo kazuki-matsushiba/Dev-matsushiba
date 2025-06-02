@@ -16,8 +16,7 @@ jobs:
           SSH_USER: ${{ secrets.DEV_SSH_USER }}
           SSH_KEY: ${{ secrets.DEV_SSHE_SSH_KEY }}
           script: |
-            /app
-            bash deploy.sh kazuki_matsushiba
+            bash /app/deploy.sh kazuki_matsushiba
 
   Deploy:
     runs-on: ubuntu-latest
@@ -31,5 +30,4 @@ jobs:
           username: ${{ secrets.PRODUCTION_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
           script: |
-            /app
-            bash deploy.sh kazuki_matsushiba
+            bash /app/deploy.sh kazuki_matsushiba
