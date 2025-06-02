@@ -1,37 +1,23 @@
-name: CI/CD to Production
+name: ssh command
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
-  test-and-deploy:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - id: ssh
+        uses: invi5H/ssh-action@v1
         with:
-          node-version: 20.9.0
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Cypress test on Staging
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.STAGING_HOST }}
-          port: ${{ secrets.STAGING_PORT }}
-          username: ${{ secrets.STAGING_USER }}
-          key: ${{ secrets.STAGING_SSH_KEY }}
-          script: |
-            cd /app
-            bash deploy.sh kazuki_matsushiba
-            npx cypress run --browser chrome --spec cypress/e2e/kazuki_matsushiba.*
+          SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
+          SSH_PORT: ${{ secrets.DEV_SSH_PORT }}
+          SSH_USER: ${{ secrets.DEV_SSH_USER }}
+          SSH_KEY: ${{ secrets.DEV_SSHE_SSH_KEY }}
+      
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} bash /app/deploy.sh kazuki_matsushiba
 
       - name: Deploy to Production
         uses: appleboy/ssh-action@master
