@@ -9,17 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: ssh
-        uses: invi5H/ssh-action@v1
+        uses: appleboy/ssh-action@v1
         with:
           SSH_HOST: ${{ secrets.DEV_SSH_HOST }}
           SSH_PORT: ${{ secrets.DEV_SSH_PORT }}
           SSH_USER: ${{ secrets.DEV_SSH_USER }}
           SSH_KEY: ${{ secrets.DEV_SSHE_SSH_KEY }}
-
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} bash /app/deploy.sh kazuki_matsushiba
+          script: |
+            /app
+            bash deploy.sh kazuki_matsushiba
 
   Deploy:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Deploy to production
         uses: appleboy/ssh-action@v1
@@ -29,5 +31,5 @@ jobs:
           username: ${{ secrets.PRODUCTION_USER }}
           key: ${{ secrets.PRODUCTION_SSH_KEY }}
           script: |
-            cd /app
+            /app
             bash deploy.sh kazuki_matsushiba
