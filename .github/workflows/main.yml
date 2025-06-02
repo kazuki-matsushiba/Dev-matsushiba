@@ -24,10 +24,10 @@ jobs:
       - name: Cypress test on Staging
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.STAGING_HOST }}
-          port: ${{ secrets.STAGING_PORT }}
-          username: ${{ secrets.STAGING_USER }}
-          key: ${{ secrets.STAGING_SSH_KEY }}
+          host: ${{ secrets.DEV_SSH_HOST }}
+          port: ${{ secrets.DEV_SSH_PORT }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          key: ${{ secrets.DEV_SSHE_SSH_KEY }}
           script: |
             cd /app
             bash deploy.sh kazuki_matsushiba
